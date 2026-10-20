@@ -1,11 +1,46 @@
-jsonc
 {
-"name": "volam-idle-tayninh",
-"main": "worker/src/index.js",
-"compatibility_date": "2026-10-01",
-"assets": {
-"directory": "./public",
-"binding": "ASSETS",
-"run_worker_first": ["/api/*"]
-}
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "my-advanced-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-20",
+
+  // 1. Biến môi trường thông thường
+  "vars": {
+    "MY_VARIABLE": "value"
+  },
+
+  // 2. Kết nối Cloudflare KV (Key-Value storage)
+  "kv_namespaces": [
+    {
+      "binding": "MY_KV",
+      "id": "xxxx_id_kv_production_xxxx"
+    }
+  ],
+
+  // 3. Kết nối Cloudflare D1 (Cơ sở dữ liệu SQL)
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "my-database",
+      "database_id": "xxxx_id_d1_xxxx"
+    }
+  ],
+
+  // 4. Kết nối Cloudflare R2 (Lưu trữ Object giống AWS S3)
+  "r2_buckets": [
+    {
+      "binding": "MY_BUCKET",
+      "bucket_name": "my-bucket-name"
+    }
+  ],
+
+  // 5. Sử dụng các mô hình Cloudflare AI
+  "ai": {
+    "binding": "AI"
+  },
+
+  // 6. Định cấu hình Cron Triggers (Chạy tự động theo thời gian)
+  "triggers": {
+    "crons": ["*/30 * * * *"] // Chạy mỗi 30 phút
+  }
 }
